@@ -14,7 +14,8 @@
       font: 10.5pt arial;
       color: #4d4d4d;
       line-height: 150%;
-      width: 500px;
+      width: window.width;
+      height: 100vh;
     }
 
     code {
@@ -22,8 +23,8 @@
     }
 
     #jsoneditor {
-      width: 500px;
-      height: 500px;
+      width: window.width;
+      height: 95vh;
     }
   </style>
 </head>
@@ -33,9 +34,8 @@
 
 <script>
   var container = document.getElementById('jsoneditor');
-
   var options = {
-    mode: 'view',
+    mode: 'code',
     modes: ['code', 'form', 'text', 'tree', 'view'], // allowed modes
     onError: function (err) {
       alert(err.toString());
