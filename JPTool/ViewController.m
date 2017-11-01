@@ -8,25 +8,41 @@
 
 #import "ViewController.h"
 #import "TGClassObject.h"
+#import <WebKit/WebKit.h>
 
 @interface ViewController()
 
-@property (unsafe_unretained) IBOutlet NSTextView *inputTextView;
 @property (unsafe_unretained) IBOutlet NSTextView *outputTextView;
 @property (weak) IBOutlet NSTextField *superClassTF;
 @property (weak) IBOutlet NSTextField *modelNameTF;
-
-
+@property (weak) IBOutlet WKWebView *inputView;
 
 @end
 
 @implementation ViewController
 
-
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // load JSON Editor
+    NSString* localPath = [[NSBundle mainBundle] pathForResource:@"je" ofType:@"html"];
+    NSURL *fileURL = [NSURL fileURLWithPath:localPath];
+    [self.inputView loadFileURL:fileURL allowingReadAccessToURL:fileURL];
+//    [self.inputView.mainFrame loadRequest:[NSURLRequest requestWithURL:fileURL]];
+//    NSError *error;
+//    NSString *HTMLString = [NSString stringWithContentsOfFile:localPath encoding:NSUTF8StringEncoding error:&error];
+//    [self.inputView loadHTMLString:HTMLString baseURL:fileURL];
+//    NSString* funcCall = @"getData({\"code\":0})";
+//    [self.inputView stringByEvaluatingJavaScriptFromString:funcCall];
+}
 
 - (IBAction)convertButtonClick:(id)sender {
-    
-    NSString *JSONString = [[self.inputTextView.string stringByReplacingOccurrencesOfString:@"”" withString:@"\""] stringByReplacingOccurrencesOfString:@"“" withString:@"\""];
+    __weak typeof(self)weakSelf = self;
+    [self.inputView evaluateJavaScript:@"sendData()" completionHandler:^(id _Nullable data, NSError * _Nullable error) {
+        [weakSelf handleJSONString:data];
+    }];
+}
+
+- (void)handleJSONString:(NSString *)JSONString {
     
     if (JSONString.length == 0) {
         self.outputTextView.string = @"No Data......";

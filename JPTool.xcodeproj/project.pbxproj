@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3350E8671FA9673D00415C9F /* JPWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3350E8661FA9673D00415C9F /* JPWindowController.m */; };
+		3350E88F1FA96EF000415C9F /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3350E88E1FA96EF000415C9F /* WebKit.framework */; };
+		3350E8CB1FA97A9700415C9F /* je.html in Resources */ = {isa = PBXBuildFile; fileRef = 3350E8C21FA97A9700415C9F /* je.html */; };
+		3350E8CD1FA97AF300415C9F /* dist in Resources */ = {isa = PBXBuildFile; fileRef = 3350E8CC1FA97AF300415C9F /* dist */; };
 		33E1214B1FA87E1A00B775D5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 33E1214A1FA87E1A00B775D5 /* AppDelegate.m */; };
 		33E1214E1FA87E1B00B775D5 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 33E1214D1FA87E1B00B775D5 /* ViewController.m */; };
 		33E121501FA87E1B00B775D5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33E1214F1FA87E1B00B775D5 /* Assets.xcassets */; };
@@ -16,6 +20,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3350E8651FA9673D00415C9F /* JPWindowController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPWindowController.h; sourceTree = "<group>"; };
+		3350E8661FA9673D00415C9F /* JPWindowController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPWindowController.m; sourceTree = "<group>"; };
+		3350E88E1FA96EF000415C9F /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		3350E8C21FA97A9700415C9F /* je.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = je.html; sourceTree = "<group>"; };
+		3350E8CC1FA97AF300415C9F /* dist */ = {isa = PBXFileReference; lastKnownFileType = folder; path = dist; sourceTree = "<group>"; };
 		33E121461FA87E1A00B775D5 /* JPTool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JPTool.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		33E121491FA87E1A00B775D5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		33E1214A1FA87E1A00B775D5 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -35,17 +44,36 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3350E88F1FA96EF000415C9F /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3350E88D1FA96EF000415C9F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3350E88E1FA96EF000415C9F /* WebKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3350E8B51FA97A9700415C9F /* JsonEditor */ = {
+			isa = PBXGroup;
+			children = (
+				3350E8CC1FA97AF300415C9F /* dist */,
+				3350E8C21FA97A9700415C9F /* je.html */,
+			);
+			path = JsonEditor;
+			sourceTree = "<group>";
+		};
 		33E1213D1FA87E1A00B775D5 = {
 			isa = PBXGroup;
 			children = (
 				33E121481FA87E1A00B775D5 /* JPTool */,
 				33E121471FA87E1A00B775D5 /* Products */,
+				3350E88D1FA96EF000415C9F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -60,10 +88,13 @@
 		33E121481FA87E1A00B775D5 /* JPTool */ = {
 			isa = PBXGroup;
 			children = (
+				3350E8B51FA97A9700415C9F /* JsonEditor */,
 				33E121491FA87E1A00B775D5 /* AppDelegate.h */,
 				33E1214A1FA87E1A00B775D5 /* AppDelegate.m */,
 				33E1214C1FA87E1B00B775D5 /* ViewController.h */,
 				33E1214D1FA87E1B00B775D5 /* ViewController.m */,
+				3350E8651FA9673D00415C9F /* JPWindowController.h */,
+				3350E8661FA9673D00415C9F /* JPWindowController.m */,
 				33E1214F1FA87E1B00B775D5 /* Assets.xcassets */,
 				33E1215D1FA87E2E00B775D5 /* TGClassObject.h */,
 				33E1215E1FA87E2F00B775D5 /* TGClassObject.m */,
@@ -107,6 +138,11 @@
 					33E121451FA87E1A00B775D5 = {
 						CreatedOnToolsVersion = 9.0;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -133,7 +169,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3350E8CD1FA97AF300415C9F /* dist in Resources */,
 				33E121501FA87E1B00B775D5 /* Assets.xcassets in Resources */,
+				3350E8CB1FA97A9700415C9F /* je.html in Resources */,
 				33E121531FA87E1B00B775D5 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -149,6 +187,7 @@
 				33E121561FA87E1B00B775D5 /* main.m in Sources */,
 				33E1215F1FA87E2F00B775D5 /* TGClassObject.m in Sources */,
 				33E1214B1FA87E1A00B775D5 /* AppDelegate.m in Sources */,
+				3350E8671FA9673D00415C9F /* JPWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -273,7 +312,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = JPTool/JPTool.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = AY6EP74J52;
@@ -288,7 +326,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = JPTool/JPTool.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = AY6EP74J52;
