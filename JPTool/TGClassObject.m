@@ -11,9 +11,13 @@
 @implementation TGClassObject
 
 
-+ (NSArray *)handleDictionary:(NSDictionary *)dict container:(NSMutableArray *)classes {
++ (NSArray *)handleDictionary:(NSDictionary *)dict container:(NSMutableArray<TGClassObject *> *)classes {
     NSMutableArray *temp = [NSMutableArray array];
     [dict enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull value, BOOL * _Nonnull stop) {
+        if ([value isKindOfClass:[NSNull class]]) {
+            value = @"";
+            [classes.firstObject.nullProperties addObject:key];
+        }
         NSString *string;
         if ([value isKindOfClass:[NSNumber class]]) {
             string = [NSString stringWithFormat:@"@property (strong, nonatomic) NSNumber *%@;", key];
@@ -49,7 +53,7 @@
     return [temp copy];
 }
 
-+ (NSArray *)handleArray:(NSArray *)array container:(NSMutableArray *)classes {
++ (NSArray *)handleArray:(NSArray *)array container:(NSMutableArray<TGClassObject *> *)classes {
     
     id object = array.firstObject;
     
@@ -81,6 +85,13 @@
         }
     }
     return false;
+}
+
+- (NSMutableArray<NSString *> *)nullProperties {
+    if (_nullProperties == nil) {
+        _nullProperties = [NSMutableArray array];
+    }
+    return _nullProperties;
 }
 
 @end

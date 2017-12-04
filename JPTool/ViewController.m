@@ -68,6 +68,10 @@
     NSMutableString *fin = [NSMutableString string];
     for (TGClassObject *classObject in classes) {
         [fin appendFormat:@"\n"];
+        if (classObject.nullProperties.count) {
+            NSString *nullWarningString = [NSString stringWithFormat:@"#warning null values: {%@} set to NSString by default\n\n", [classObject.nullProperties componentsJoinedByString:@"/"]];
+            [fin appendString:nullWarningString];
+        }
         NSString *classString = [NSString stringWithFormat:@"@interface %@: %@\n\n", classObject.className, superClass];
         [fin appendString:classString];
         for (NSString *property in classObject.properties) {
@@ -77,6 +81,7 @@
     }
     self.outputTextView.string = [fin copy];
 }
+
 
 @end
 

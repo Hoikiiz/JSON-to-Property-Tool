@@ -13,8 +13,15 @@
 @property (copy, nonatomic) NSString *className;
 @property (copy, nonatomic) NSArray *properties;
 
+/**
+ null values in JSON, defualt set to an empty string such as:
+ 
+ "name": null -> "name": ""
+ */
+@property (strong, nonatomic) NSMutableArray<NSString *> *nullProperties;
 
-+ (NSArray *)handleDictionary:(NSDictionary *)dict container:(NSMutableArray *)classes;
-+ (NSArray *)handleArray:(NSArray *)array container:(NSMutableArray *)classes;
+
++ (NSArray *)handleDictionary:(NSDictionary *)dict container:(NSMutableArray<TGClassObject *> *)classes;
++ (NSArray *)handleArray:(NSArray *)array container:(NSMutableArray<TGClassObject *> *)classes;
 + (NSString *)handleArrayClass:(id)object key:(NSString *)key;
 @end
