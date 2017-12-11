@@ -28,7 +28,7 @@
         
         if ([value isKindOfClass:[NSDictionary class]]) {
             NSString *className = [@"Model" stringByAppendingString:key];
-            string = [NSString stringWithFormat:@"@property (copy, nonatomic) %@ *%@;", className, key];
+            string = [NSString stringWithFormat:@"@property (strong, nonatomic) %@ *%@;", className, key];
             if (![self hasClass:className classes:classes]) {
                 TGClassObject *classObject = [TGClassObject new];
                 classObject.className = className;
