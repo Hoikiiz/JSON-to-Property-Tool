@@ -20,14 +20,14 @@
         }
         NSString *string;
         if ([value isKindOfClass:[NSNumber class]]) {
-            string = [NSString stringWithFormat:@"@property (strong, nonatomic) NSNumber *%@;", key];
+            string = [self handleNumberType:key];
         }
         if ([value isKindOfClass:[NSString class]]) {
             string = [NSString stringWithFormat:@"@property (copy, nonatomic) NSString *%@;", key];
         }
         
         if ([value isKindOfClass:[NSDictionary class]]) {
-            NSString *className = [@"Model" stringByAppendingString:key];
+            NSString *className = [[key capitalizedString] stringByAppendingString:@"Model"];
             string = [NSString stringWithFormat:@"@property (strong, nonatomic) %@ *%@;", className, key];
             if (![self hasClass:className classes:classes]) {
                 TGClassObject *classObject = [TGClassObject new];
@@ -74,7 +74,7 @@
         return [NSString stringWithFormat:@"NSArray<%@ *>", [self handleArrayClass:[object firstObject] key:key]];
     }
     else {
-        return [NSString stringWithFormat:@"Model%@", key];
+        return [NSString stringWithFormat:@"%@Model", [key capitalizedString]];
     }
 }
 
@@ -92,6 +92,55 @@
         _nullProperties = [NSMutableArray array];
     }
     return _nullProperties;
+}
+
++ (NSString *)handleNumberType:(NSString *)key {
+    if (self.trueNumberType) {
+        NSString * formatKey = [NSString stringWithFormat:@"\"%@\":", key];
+        NSArray *lines = [self.metaJSONString componentsSeparatedByString:@"\n"];
+        for (NSString *line in lines) {
+            if ([line containsString:formatKey]) {
+                NSLog(@"line is %@", line);
+                NSString *value = [[[(NSString *)[line componentsSeparatedByString:@":"].lastObject stringByReplacingOccurrencesOfString:@"," withString:@""] stringByReplacingOccurrencesOfString:@"\"" withString:@""] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                if ([value containsString:@"."]) {
+                    NSString *digPart = [value componentsSeparatedByString:@"."].lastObject;
+                    if (digPart.length <= 8) {
+                        return [NSString stringWithFormat:@"@property (assign, nonatomic) float %@;", key];
+                    } else {
+                        return [NSString stringWithFormat:@"@property (assign, nonatomic) double %@;", key];
+                    }
+                } else if ([value isEqualToString:@"true"] || [value isEqualToString:@"false"]){
+                    return [NSString stringWithFormat:@"@property (assign, nonatomic) BOOL %@;", key];
+                } else {
+                    return [NSString stringWithFormat:@"@property (assign, nonatomic) NSInteger %@;", key];
+                }
+            }
+        }
+        return @"";
+    } else {
+        return [NSString stringWithFormat:@"@property (strong, nonatomic) NSNumber *%@;", key];
+    }
+}
+
+#pragma Class Properties
+
+static BOOL _trueNumberType;
+static NSString *_metaJSONString;
+
++ (BOOL)trueNumberType {
+    return _trueNumberType;
+}
+
++ (void)setTrueNumberType:(BOOL)trueNumberType {
+    _trueNumberType = trueNumberType;
+}
+
++ (NSString *)metaJSONString {
+    return _metaJSONString;
+}
+
++ (void)setMetaJSONString:(NSString *)metaJSONString {
+    _metaJSONString = metaJSONString;
 }
 
 @end

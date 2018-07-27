@@ -12,6 +12,8 @@
 
 @property (copy, nonatomic) NSString *className;
 @property (copy, nonatomic) NSArray *properties;
+@property (assign, nonatomic, class) BOOL trueNumberType;
+@property (copy, nonatomic, class) NSString *metaJSONString;
 
 /**
  null values in JSON, defualt set to an empty string such as:

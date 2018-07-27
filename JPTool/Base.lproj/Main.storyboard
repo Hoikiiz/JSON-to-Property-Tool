@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13196"/>
-        <plugIn identifier="com.apple.WebKit2IBPlugin" version="13196"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14109"/>
+        <plugIn identifier="com.apple.WebKit2IBPlugin" version="14109"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -808,6 +808,17 @@
                                     <wkPreferences key="preferences"/>
                                 </wkWebViewConfiguration>
                             </wkWebView>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TzP-cQ-8NE">
+                                <rect key="frame" x="490" y="540" width="143" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="check" title="True Numer Type" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="9aM-99-C1J">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="checkboxClick:" target="XfG-lQ-9wD" id="7Pw-7u-wRS"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstItem="elY-8A-6H8" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="0Ef-nx-YPc"/>
@@ -841,6 +852,7 @@
                     <connections>
                         <outlet property="inputView" destination="zdb-7V-HbK" id="wYT-YY-WGx"/>
                         <outlet property="modelNameTF" destination="qNl-X3-OKn" id="VK0-J4-IAW"/>
+                        <outlet property="numberTypeCheckBox" destination="TzP-cQ-8NE" id="2T0-9S-yVw"/>
                         <outlet property="outputTextView" destination="MiN-3d-jOE" id="xFa-TO-Yyw"/>
                         <outlet property="superClassTF" destination="elY-8A-6H8" id="ZsG-zI-KYb"/>
                     </connections>

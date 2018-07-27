@@ -16,6 +16,7 @@
 @property (weak) IBOutlet NSTextField *superClassTF;
 @property (weak) IBOutlet NSTextField *modelNameTF;
 @property (weak) IBOutlet WKWebView *inputView;
+@property (weak) IBOutlet NSButton *numberTypeCheckBox;
 
 @end
 
@@ -27,12 +28,6 @@
     NSString* localPath = [[NSBundle mainBundle] pathForResource:@"je" ofType:@"html"];
     NSURL *fileURL = [NSURL fileURLWithPath:localPath];
     [self.inputView loadFileURL:fileURL allowingReadAccessToURL:fileURL];
-//    [self.inputView.mainFrame loadRequest:[NSURLRequest requestWithURL:fileURL]];
-//    NSError *error;
-//    NSString *HTMLString = [NSString stringWithContentsOfFile:localPath encoding:NSUTF8StringEncoding error:&error];
-//    [self.inputView loadHTMLString:HTMLString baseURL:fileURL];
-//    NSString* funcCall = @"getData({\"code\":0})";
-//    [self.inputView stringByEvaluatingJavaScriptFromString:funcCall];
 }
 
 - (IBAction)convertButtonClick:(id)sender {
@@ -50,7 +45,7 @@
     }
     
     NSError *error;
-    
+    NSLog(@"%@", JSONString);
     NSDictionary *JSONObject = [NSJSONSerialization JSONObjectWithData:[JSONString dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:&error];
     if (error != nil) {
         self.outputTextView.string = error.localizedDescription;
@@ -62,7 +57,9 @@
     
     TGClassObject *rootObject = [TGClassObject new];
     [classes addObject:rootObject];
-    rootObject.className = self.modelNameTF.stringValue.length > 0 ? self.modelNameTF.stringValue : @"ModelBase";
+    rootObject.className = self.modelNameTF.stringValue.length > 0 ? self.modelNameTF.stringValue : @"BaseModel";
+    TGClassObject.metaJSONString = JSONString;
+    TGClassObject.trueNumberType = self.numberTypeCheckBox.state == NSControlStateValueOn;
     rootObject.properties = [TGClassObject handleDictionary:JSONObject container:classes];
     
     NSMutableString *fin = [NSMutableString string];
@@ -72,7 +69,7 @@
             NSString *nullWarningString = [NSString stringWithFormat:@"#warning null values: {%@} set to NSString by default\n\n", [classObject.nullProperties componentsJoinedByString:@"/"]];
             [fin appendString:nullWarningString];
         }
-        NSString *classString = [NSString stringWithFormat:@"@interface %@: %@\n\n", classObject.className, superClass];
+        NSString *classString = [NSString stringWithFormat:@"@interface %@ : %@\n\n", classObject.className, superClass];
         [fin appendString:classString];
         for (NSString *property in classObject.properties) {
             [fin appendFormat:@"%@\n", property];
